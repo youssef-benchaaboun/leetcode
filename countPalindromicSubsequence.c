@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 
-void	intialize_tab(int *tab, int matrix[256][256])
+void	intialize_tab(int *tab, int matrix[26][26])
 {
 	int	i;
 
 	i = 0;
-	while (i < 256)
+	while (i < 26)
 	{
 		tab[i] = -1;
-		bzero(matrix[i++], 256 * sizeof(int));
+		bzero(matrix[i++], 26 * sizeof(int));
 	}
 }
 int	special(int start, int end, int *showed, char *s)
@@ -21,10 +21,10 @@ int	special(int start, int end, int *showed, char *s)
 	re = 0;
 	while (i < end)
 	{
-		if (!showed[s[i]])
+		if (!showed[s[i] % 26])
 		{
 			re++;
-			showed[s[i]] = 1;
+			showed[s[i] % 26] = 1;
 		}
 		i++;
 	}
@@ -32,8 +32,8 @@ int	special(int start, int end, int *showed, char *s)
 }
 int	countPalindromicSubsequence(char *s)
 {
-	int	first_seen[256];
-	int	mid[256][256];
+	int	first_seen[26];
+	int	mid[26][26];
 	int	i;
 	int	re;
 
@@ -42,11 +42,14 @@ int	countPalindromicSubsequence(char *s)
 	intialize_tab(first_seen, mid);
 	while (s[i])
 	{
-		if (first_seen[s[i]] == -1)
-			first_seen[s[i]] = i;
+		if (first_seen[s[i] % 26] == -1)
+			first_seen[s[i] % 26] = i;
 		else
 		{
-			re += special(first_seen[s[i]], i, mid[s[i]], s);
+			re += special(first_seen[s[i] % 26], i, mid[s[i] % 26], s);
+			if (first_seen[s[i] % 26] != i - 1 && (i < (strlen(s) - 1) && s[i
+					+ 1] != s[i]))
+				first_seen[s[i] % 26] = i;
 		}
 		i++;
 	}
@@ -54,5 +57,5 @@ int	countPalindromicSubsequence(char *s)
 }
 int	main(void)
 {
-	printf("case 1 : %d \n", countPalindromicSubsequence("abcdef"));
+	printf("case 1 : %d \n", countPalindromicSubsequence("xabdxx"));
 }
