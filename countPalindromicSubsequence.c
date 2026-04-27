@@ -1,9 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-<<<<<<< HEAD
-
-=======
->>>>>>> dd8cd06534ea9976b29c42edaea227cc82b51a5a
 void	intialize_tab(int *tab, int matrix[26][26])
 {
 	int	i;
@@ -24,17 +20,10 @@ int	special(int start, int end, int *showed, char *s)
 	re = 0;
 	while (i < end)
 	{
-<<<<<<< HEAD
-		if (!showed[s[i] % 26])
-		{
-			re++;
-			showed[s[i] % 26] = 1;
-=======
 		if (!showed[s[i]%26])
 		{
 			re++;
 			showed[s[i]%26] = 1;
->>>>>>> dd8cd06534ea9976b29c42edaea227cc82b51a5a
 		}
 		i++;
 	}
